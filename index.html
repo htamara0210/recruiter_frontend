@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Reclutamiento</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1><i class="fas fa-users"></i> Sistema de Reclutamiento</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn btn-secondary">
+          <i class="fas fa-sync-alt"></i> Actualizar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Filtros y búsqueda -->
+    <section class="filters-section">
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label for="statusFilter">Estado:</label>
+          <select id="statusFilter" class="form-select">
+            <option value="all">Todos</option>
+            <option value="reviewed">Revisados</option>
+            <option value="pending">Pendientes</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="searchInput">Buscar:</label>
+          <input type="text" id="searchInput" class="form-input" placeholder="Nombre o número de identificación">
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabla de candidatos -->
+    <section class="table-section">
+      <div class="table-header">
+        <h2>Candidatos</h2>
+        <div class="table-actions">
+          <span id="recordCount" class="record-count"></span>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <table id="candidatesTable" class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre Completo</th>
+              <th>Número Doc.</th>
+              <th>Fecha Registro</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination">
+        <button id="prevBtn" class="btn btn-outline" disabled>
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        <span id="pageInfo" class="page-info">Página 1</span>
+        <button id="nextBtn" class="btn btn-outline">
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para detalles del candidato -->
+  <div id="candidateModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Detalles del Candidato</h3>
+        <button id="closeModal" class="btn-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="candidate-info">
+          <h4 id="candidateName"></h4>
+          <p id="candidateDoc"></p>
+          <div class="candidate-status">
+            <span>Estado actual: </span>
+            <span id="modalStatusPill"></span>
+            <button id="toggleStatusBtn" class="btn btn-outline btn-sm">
+              <i class="fas fa-edit"></i> Cambiar estado
+            </button>
+          </div>
+        </div>
+        <div class="files-section">
+          <h5>Documentos</h5>
+          <div id="filesList" class="files-grid"></div>
+        </div>
+        <div class="pdf-viewer">
+          <iframe id="pdfViewer" title="Visor de documentos"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Cargando...</p>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
